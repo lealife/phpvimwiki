@@ -12,3 +12,24 @@ phpvimwiki
 或者使用另一款在线的wiki程序写wiki? 虽然wiki的语法差不多, 可终就有差异, 而且还要将自己原来的wiki复制过去, 麻烦!
 
 于是我就快速地做了一个phpvimwiki的原型来解决上述问题啦, 用了两天, 想到就做, 自己喜欢就OK了, 当然也期待有其它人喜欢!
+
+== phpvimwiki如何使用 ==
+
+请把你的wiki放在wiki目录下, 然后配置config.php. 你需要写一个quick view的索引wiki. 参照/wiki/php/quick_view.wiki.
+
+== phpvimwiki目录结构== 
+<pre>
+index.php 入口文件
+config.php 配置文件
+include/
+    phpvimwiki.php vimwiki语法解析类(主要, 你也可以单独把这个类放在自己写的应用中.)
+    quickview.php 内容提要类, 继承自phpvimwiki
+wiki/ 你的wiki目录
+public/ 
+    css/ 
+    js/
+    images/ 你所写的wiki引用的内部图片放在这里.
+layout/ 布局, 你可以修改成你喜欢的.
+view/ 视图
+page/ 控制器
+</pre>

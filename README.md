@@ -1,5 +1,5 @@
-phpvimwiki
-==========
+# phpvimwiki
+
 
 之前该项目在google code上, 现在迁移到github. 算是自娱自乐吧.
 
@@ -13,11 +13,11 @@ phpvimwiki
 
 于是我就快速地做了一个phpvimwiki的原型来解决上述问题啦, 用了两天, 想到就做, 自己喜欢就OK了, 当然也期待有其它人喜欢!
 
-== phpvimwiki如何使用 ==
+## phpvimwiki如何使用
 
 请把你的wiki放在wiki目录下, 然后配置config.php. 你需要写一个quick view的索引wiki. 参照/wiki/php/quick_view.wiki.
 
-== phpvimwiki目录结构== 
+## phpvimwiki目录结构
 <pre>
 index.php 入口文件
 config.php 配置文件

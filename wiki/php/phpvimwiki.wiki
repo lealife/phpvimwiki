@@ -1,0 +1,82 @@
+ = phpvimwiki =
+%toc
+你喜欢在vimwiki上写东西吗? 我是一名vimwiki的爱好者, 因为喜欢vim, 因为vimwiki的简便让我使用vimwiki记录下我生活的学习, 我做了什么, 我写了什么代码, 我遇到了什么困难, 我怎么去分析解决....这一切都离不开vimwiki.
+
+但有时我并不想将我的记录存在我的本本里, 我也想让别人来分享我的生活记录, 怎么办? 
+
+将vimwiki生成好了html上传到网上? 那么总是要本地生成好html之后再上传(麻烦), 而且怎么看也不像一个博客, 虽然可以定义header, footer, css, 但是总觉得不能满足自己的需求.
+
+或者使用另一款在线的wiki程序写wiki? 虽然wiki的语法差不多, 可终就有差异, 而且还要将自己原来的wiki复制过去, 麻烦!
+
+于是我就快速地做了一个phpvimwiki的原型来解决上述问题啦, 用了两天, 想到就做, 自己喜欢就OK了, 当然也期待有其它人喜欢!
+
+有什么建议, 问题请联系我, E-mail: lifephp@yahoo.com 或 QQ: 289981565. 谢谢!
+
+* 演示: [http://lealife.com] 
+* Google code: http://code.google.com/p/phpvimwiki/
+
+== 功能 ==
+* 现实现的功能:
+	# 完全将原来的wiki文件上传即可通过web浏览(当然还要配置下config.php文件), 不必上传html.
+	# 快速浏览的功能, 可以在首页上显示自己设置的特定wiki的内容.(类似博客的功能).
+	# 布局自定, 在layout/下, 有_header.php, _footer.php
+* 将要完成的功能:
+	# 修改wiki, 添加wiki功能
+	# 更好的需求, 请联系我.
+-- more --
+
+== 开发进度 ==
+* 2012/7/14
+	* phpwimwiki.php 实现wiki解析类基本功能
+* 2012/7/15
+	* phpvimwiki目录结构成形.
+	* 添加功能:
+		* phpvimwiki wiki解析功能添加: 内链, 列表优化.
+		* quick view 快速浏览
+		* 查看wiki
+* 2012/7/16
+	* phpvimwiki wiki解析添加外链
+
+* 2012/7/18
+	* 修正当没设置more_mark时没有段落问题
+	* 添加blockquote标签处理 最开始一个tab或四个空格就是blockquote
+	* 支持外链图片, 如`http://lealife/logo.png`
+	* 对代码标记的解析先做全局处理, 将其拿出不参与每行的处理.
+	* 对字体的解析作了优化.
+* 2012/7/19
+	* 支持图片链接, 支持的形式如下:
+{{{
+	  [[a.jpg]] <img scr="a.jpg" />
+	  [[http://lealife/a.jpg]] <img scr="http://lealife/a.jpg" />
+	  [[http://lealife/a.jpg | 图片链接title]] <a href="http://...a.jpg>图片链接title</a>
+	  [[http://lealife/big.jpg | thumb.jpg]] <a href="http://...big.jpg><img src="thumb.jpg" /></a>
+	  [[http://lealife/a.jpg | alt | width:100px; height:100px]] <img alt="alt" src="http://...a.jpg/ style="width:100px;height:100px">
+}}}
+* 2012/7/20
+	* 支持GBK中文件与UTF8中文文件名.
+* 2012/7/22
+	* 基本实现创建, 编辑wiki. (中文名创建wiki不实现)
+* 2012/7/23
+	* 优化创建, 编辑wiki, 添加登录, 至此基本功能已完成.
+* 2012/726
+	* 优化字体, 链接解析.
+
+== 如何使用 ==
+请把你的wiki放在wiki目录下, 然后配置config.php. 你需要写一个quick view的索引wiki. 参照/wiki/php/quick_view.wiki.
+
+== phpvimwiki目录结构 ==
+{{{
+index.php 入口文件
+config.php 配置文件
+include/
+    phpvimwiki.php vimwiki语法解析类(主要, 你也可以单独把这个类放在自己写的应用中.)
+    quickview.php 内容提要类, 继承自phpvimwiki
+wiki/ 你的wiki目录
+public/ 
+    css/ 
+    js/
+    images/ 你所写的wiki引用的内部图片放在这里.
+layout/ 布局, 你可以修改成你喜欢的.
+view/ 视图
+page/ 控制器
+}}}

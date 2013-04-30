@@ -1,0 +1,7 @@
+ = About Me =
+
+[[phpvimwiki.gif]]
+
+my name is....
+
+I like phpvimviki.

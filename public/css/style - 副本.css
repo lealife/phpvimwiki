@@ -1,0 +1,272 @@
+/* 
+view : 
+	<div id="article"></div>
+quick view: 
+	<div id="quick_view> 
+		<div class="quick">
+			<div class="title"></div>
+			<div class="content"></div>
+		</div> 
+		<div class="quick">
+			<div class="title"></div>
+			<div class="content"></div>
+		</div> 
+	</div>
+*/
+/* 全局 */
+body {
+	font-family: Arial,Sans-Serif;
+	margin: 0 0 0 10px; 
+	padding:0; 
+    font-size: 12px;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    font-size: 100%;
+    margin: 0;
+    outline: 0 none;
+    padding: 0;
+    vertical-align: baseline;
+}
+a {
+	color: #0279B5;
+	text-decoration: none;
+}
+a:hover {
+	color: #CD3517;
+	text-decoration: underline;
+}
+#header {
+    float: left;
+    margin: 0 0 60px 10px;
+    position: fixed;
+    width: 200px;
+	
+}
+#main {
+	float: right;
+    margin: 10px 0 0 250px;
+	width: 75%;
+	padding-left: 10px;
+	border-left: 1px solid #CCC;
+}
+#footer {
+    clear: both;
+    float: left;
+	margin: 30px 0 0 250px;
+    overflow: hidden;
+    padding: 0 0 30px;
+    width: 70%;
+}
+.clearfix:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+    width: 0;
+}
+
+/* 导航 */
+div.toc{
+    border:1px solid #ccc; 
+    background-color:#fff; 
+    float:right; 
+	position:fixed; 
+    padding: 10px 10px 10px 0;
+    top: 10px; 
+	right:0; 
+    width:240px;
+    z-index:1;
+    -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px;
+    -moz-opacity:.2; opacity:0.1; -ms-filter:"opacity=20"; filter:alpha(opacity=10);
+}
+div.toc:hover{
+    box-shadow:0 0 2px #f1f1f1;
+    -moz-opacity:1; opacity:.8; -ms-filter:"enabled=false";
+}
+    div.toc ul{margin:0; padding:0 0 0 1em; *padding:0;}
+    div.toc>ul{padding:0;}
+    div.toc ul ul{*padding:0 0 0 8px;}
+    div.toc li{list-style-type: none; margin:0; padding:0 0 0 18px; background:transparent url(bg/icons.png) no-repeat scroll 0 -48px; font-size:.9em; line-height:18px; overflow:hidden;}
+#nav_title {
+	text-align: center;
+}
+
+/* 标题 */
+h1 a, h1 a:visited, h1 a:active, h2 a, h2 a:visited, h2 a:active {
+    color: #111111;
+    text-decoration: none;
+}
+h1 a:hover, .title a:hover {
+	color: #CD3517;
+	text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	line-height:1.5em;
+    margin-top: 1em; 
+	margin-bottom: 0.5em;
+    border-bottom:0px none; 
+}
+h1 {
+    font-size: 1.5em;
+    color: #CD3517;
+    padding: 0px;
+    margin: 0px;
+    line-height: 70px;
+    -moz-border-radius:4px; 
+    -khtml-border-radius:4px; 
+    -webkit-border-radius:4px; 
+    border-radius:4px;
+	font-family: 微软雅黑;
+}
+h2 {font-size: 1.4em; border-bottom:1px solid #ccc; font-weight:bold;}
+h3 {font-size: 1.2em; font-weight:bold; border-bottom:1px dashed #ccc;}
+h4 {font-size: 1.2em; font-weight:normal;}
+h5 {font-size: 1.1em; font-weight:normal;}
+h6 {font-size: 1.0em; font-weight:normal;}
+
+p, pre, blockquote, table, ul, ol, dl {margin-top:.5em; margin-bottom:1em;}
+
+ul ul, ul ol, ol ol, ol ul {margin:.1em 1em;}
+li {margin: 0.1em 0;}
+ul {margin-left: 2em; padding-left: 0.5em;}
+
+dt {font-weight: bold;}
+img{
+	padding:5px; border:1px solid #eee;
+    -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px;
+}
+img:hover{
+    -moz-box-shadow:0 0 8px #666; -webkit-box-shadow:0 0 8px #666; box-shadow:0 0 8px #666;
+}
+a:hover img{
+    -moz-box-shadow:0 0 12px #333; -webkit-box-shadow:0 0 12px #333; box-shadow:0 0 12px #333;
+}
+pre{
+    margin:.5em; padding:5px;
+    border-width:1px 0 1px 3px; 
+    border-style:solid; 
+    border-color:#eee;
+    border-left: 2px solid #4D90FE;
+    -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px;
+    line-height:1.5em; 
+    font-family:"Lucida Console", "Console", "Courier New";
+    color: #555;
+    font-size: 13px;
+    background-color: #f8f8f8;
+}
+
+pre:hover{
+    background: #f8f8f8;
+    color: #000;
+}
+code{
+    margin:1px 3px; padding:2px; display:inline-block; background:#f8f8f8 none; border:1px solid #eee;
+    -moz-border-radius:4px; -khtml-border-radius:4px; -webkit-border-radius:4px; border-radius:4px;
+    font-family:"Lucida Console", "Console", "Courier New";
+    color: #555;
+    font-size: 13px;
+}
+code:hover{
+    border-color:#ccc;
+    color: #000;
+}
+blockquote{
+    margin:.5em 1em; 
+    padding:0.4em 10px;
+    line-height:1.5em;
+    border-width:0; border-color:#ccc; border-style:solid;
+    -moz-border-radius:8px; -khtml-border-radius:8px; -webkit-border-radius:8px; border-radius:8px;
+    background-color:#f8f8f8; 
+}
+
+/* 表格 */
+table {
+	table-layout:fixed; 
+	border-collapse:collapse; 
+	border-spacing:0;
+    border-width:1px 0 0 1px; border-style:solid; border-color:#ccc;
+	background-color: #fff;
+}
+table:hover {
+    -moz-box-shadow:0 0 1px #666; 
+	-webkit-box-shadow:0 0 1px #666; 
+	box-shadow:0 0 1px #666;
+}
+	th, td {
+		border-width:0 1px 1px 0; border-style:solid; border-color:#ccc; padding: 0.3em;
+	}
+	th{
+		background-color: #f0f0f0;
+	}
+
+/* 其它字体 */
+hr {border: none; border-top: 1px solid #ccc; width: 100%;}
+del {text-decoration: line-through; color: #777777;}
+
+.justleft {text-align: left;}
+.justright {text-align: right;}
+.justcenter {text-align: center;}
+
+/* header */
+/* header nav */
+.logo h1 {
+    font-size: 30px;
+    line-height: 35px;
+    padding: 5px 0 0;
+	font-family: Trebuchet MS,inherit,Arial,Sans-Serif;
+}
+.logo h1 a {
+	color: #497CAA;
+}
+.logo p {
+	font-size: 13px;
+}
+#nav li{
+    font-size: 13px;
+    font-weight: bold;
+    padding: 2px;
+}
+
+/* preview 
+
+quick view: 
+	<div id="quick_view> 
+		<div class="quick">
+			<div class="title"></div>
+			<div class="content"></div>
+		</div> 
+		<div class="quick">
+			<div class="title"></div>
+			<div class="content"></div>
+		</div
+*/
+#quick_view {
+}
+
+	.quick {
+		border-bottom: solid 1px #ccc;
+		margin: 10px;
+	}
+		.quick .title {
+			font-weight: bold;
+			font-size: 1.3em;
+		}
+		.quick h1 {
+			display: none;
+		}
+
+		.quick h2 {
+			font-size: 1.1em;
+		}
+		.quick h2 {
+			font-size: 1em;
+		}
+
+

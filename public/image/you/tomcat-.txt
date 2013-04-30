@@ -1,0 +1,115 @@
+Tomcat7配置
+2010年10月20日 由Leyond	 发布在 Java 留下评论
+Tomcat7已经发布多时，Tomcat7增加了对Servlet 3.0,JSP 2.2和JSP-EL 2。2的支持、支持web application内存泄露的检测和防护等很多新功能。本片教程主要介绍如何配置Tomcat7。
+
+一、软件下载
+
+首先需要下载Java Jdk以及Tomcat7。JDK下载地址：最新为JDK6 update22, Tomcat7下载地址：最新为Tomcat7.02 Beta。
+
+二、软件安装和配置
+
+1.首先安装JDK，直接点击安装即可,比如默认安装的路径为：C:\Program Files\Java\jdk1.6.0_22。安装之后需要设定环境变量。在我的电脑->属性->高级->环境变量->系统变量中添加以下环境变量：(假设你的jdk安装目录如上设置)
+
+新建变量名： JAVA_HOME  , 值(value)为：C:\Program Files\Java\jdk1.6.0_22
+新建变量名：classpath ,值(value)为： .;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;  (.;一定不能少，因为它代表当前路径)
+查找变量名：path ,增加值(value)为：%JAVA_HOME%\bin;
+添加完毕，确定即可。接下来简单测试环境变量是否配置正确：
+
+public class Test{
+public static void main(String args[]){
+System.out.println("Hello Leyond");
+}
+}
+将以上代码拷贝保存成Test.java文件。然后命令行窗口(xp:在运行输入cmd,vista和win7直接在搜索框中输入cmd)，CD到文件所在的目录，然后键入下列命令：
+
+javac Test.java
+java Test
+注意第二个命令没有.java后缀。如果看到“Hello Leyond”，则表明jdk环境变量配置成功，没有的话，检查自己的配置情况。
+
+2. Tomcat7安装和配置
+
+下载zip文件之后直接解压到某个目录下，比如：C:\itdevelop\Tomcat7。然后在我的电脑->属性->高级->环境变量->系统变量中添加以下环境变量：
+
+新建变量名: TOMCAT_HOME, 值(value)为：C:\itdevelop\Tomcat7
+查找变量名: classpath, 增加值为：%TOMCAT_HOME%\common\lib
+增加后的classpath的值为：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;%TOMCAT_HOME%\lib 。最后进入Tomcat7安装目录下的Bin目录，启动Tomcat,在浏览器中输入：http://localhost:8080/，若可以看到Tomcat7的欢迎界面，表示Tomcat7配置成功了。
+
+三、新建webApp
+
+这里介绍如何搭建一个JSP简单的应用。首先到Tomcat7目录下webapps目录，例如：C:\itdevelop\Tomcat7\webapps，该目录存放了ROOT，docs,examples等目录，ROOT存放的是欢迎界面的代码，docs主要是文档，examples中可以查看各种例子。接下来看看如何新建一个属于自己的jsp应用程序。
+
+操作如下：
+
+1. 在webapps下新建myapp目录。
+
+2. myapp下新建一个目录WEB-INF，注意，目录名称是区分大小写的。
+
+3.WEB-INF下新建一个文件web.xml，内容如下:
+
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app version="3.0"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+         <display-name>My Web Application</display-name>
+        <description>
+             A application for test.
+        </description>
+</web-app>
+4. 在myapp下新建一个测试的jsp页面，文件名为index.jsp，文件内容如下:
+
+<html>
+<body>
+<center>
+Now time is: <%=new java.util.Date()%>
+</center>
+</body>
+</html>
+5. 启动Tomcat,在浏览器输入http://localhost:8080/myapp/index.jsp看到当前时间的话说明就成功了。
+
+四、新建Servlet
+
+在之前myapp目下的/WEB-INF/classes/test目录下新建HelloWorld.java(若没有class,test目录，请新建)。HelloWorld内容如下：
+
+package test;
+import java.io.*;
+ import javax.servlet.*;
+ import javax.servlet.http.*;
+ public class HelloWorld extends HttpServlet
+ {
+    public void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException,IOException
+    {
+    response.setContentType("text/html");
+    PrintWriter out = response.getWriter();
+    out.println("<html><head><title>");
+    out.println("This is my first Servlet");
+    out.println("</title></head><body>");
+    out.println("<h1>Hello,World!</h1>");
+    out.println("</body></html>");
+ 
+   }
+}
+之后用javac HelloWorld.java来编译该文件。倘若出现”package javax.servlet does not exist“，请把C:\itdevelop\Tomcat7\lib目录下的servlet-api.jar拷贝到C:\Program Files\Java\jre6\lib\ext，重启电脑，再次编译即可。
+
+目前C:\itdevelop\Tomcat7\webapps\myapp的目录结构如下：
+
+./index.jsp
+
+./WEB-INF/web.xml
+
+./WEB-INF/classes/test/HelloWorld.class (编译HelloWorld.java生成的)
+
+然后在浏览器中输入http://localhost:8080/myapp/HelloWorld,于是Server众望所归的报错了:Error 404–Not Found 怎么回事呢？我们还需要配置Servlet的之行环境。打开WEB-INF目录下的web.xml，在<web-app></web-app>添加下面这段程序：
+
+<servlet>
+    <servlet-name>HelloWorld</servlet-name>
+    <servlet-class>test.HelloWorld</servlet-class>
+ </servlet>
+ <servlet-mapping>
+    <servlet-name>HelloWorld</servlet-name>
+    <url-pattern>/HelloWorld</url-pattern>
+ </servlet-mapping>
+这段xml内容，首先指定servlet的名字，类的名字。然后把servlet映射到一种URL模式，使得通过URL来访问这个servlet。修改之后，若需要重启Tomcat,然后浏览http://localhost:8080/myapp/HelloWorld一个Hello,World!等着你，如果你看到了，表示servlet也成功了。
+
+Tomcat配置就写到这，该篇教程的实例代码可以从BOX.NET下载。
